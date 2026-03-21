@@ -55,7 +55,7 @@ export default function Banner() {
           router.push('/venue');
         }}
       >
-        Find a Table
+        Start Reserve
       </button>
     </div>
   );
