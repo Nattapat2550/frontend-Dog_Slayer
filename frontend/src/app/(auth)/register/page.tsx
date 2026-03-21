@@ -70,27 +70,27 @@ export default function RegisterPage() {
         )}
         
         <div className="flex flex-col gap-3">
-            <input type="text" placeholder="ชื่อ - นามสกุล" 
+            <input type="text" placeholder="Full Name" 
               className="w-full p-3 sm:p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base" 
               onChange={e => setFormData({...formData, name: e.target.value})} />
-            <input type="email" placeholder="อีเมล (Email Address)" 
+            <input type="email" placeholder="Email Address" 
               className="w-full p-3 sm:p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base" 
               onChange={e => setFormData({...formData, email: e.target.value})} />
-            <input type="tel" placeholder="เบอร์โทรศัพท์" 
+            <input type="tel" placeholder="Phone Number" 
               className="w-full p-3 sm:p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base" 
               onChange={e => setFormData({...formData, tel: e.target.value})} />
-            <input type="password" placeholder="รหัสผ่าน (ขั้นต่ำ 6 ตัวอักษร)" 
+            <input type="password" placeholder="Password (min 6 chars)" 
               className="w-full p-3 sm:p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base" 
               onChange={e => setFormData({...formData, password: e.target.value})} />
         </div>
 
         <button type="submit" disabled={loading || !!success} 
           className="w-full bg-blue-600 text-white p-3 sm:p-4 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed mt-1">
-            {loading ? "กำลังดำเนินการ..." : "สมัครสมาชิก"}
+            {loading ? "Waiting..." : "Sign Up"}
         </button>
 
         <p className="text-center text-sm text-gray-600 mt-2">
-            มีบัญชีอยู่แล้ว? <Link href="/login" className="text-blue-600 font-semibold hover:underline">เข้าสู่ระบบเลย</Link>
+            Already have an account? <Link href="/login" className="text-blue-600 font-semibold hover:underline">Log in here</Link>
         </p>
       </form>
     </main>

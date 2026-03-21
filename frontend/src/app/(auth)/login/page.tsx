@@ -39,8 +39,8 @@ export default function LoginPage() {
     <main className="flex justify-center items-center min-h-screen p-4 sm:p-8 bg-gray-50">
       <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-10 rounded-3xl shadow-lg border border-gray-100 w-full max-w-md flex flex-col gap-4 sm:gap-6 transition-all">
         <div className="text-center mb-2">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">เข้าสู่ระบบ</h1>
-            <p className="text-gray-500 mt-2 text-sm">ยินดีต้อนรับกลับมา! โปรดเข้าสู่ระบบเพื่อดำเนินการต่อ</p>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Welcome Back</h1>
+            <p className="text-gray-500 mt-2 text-sm">Please log in to your account</p>
         </div>
         
         {/* กล่องแจ้งเตือน Error */}
@@ -60,21 +60,21 @@ export default function LoginPage() {
         )}
         
         <div className="flex flex-col gap-3">
-            <input type="email" placeholder="อีเมล (Email Address)" 
+            <input type="email" placeholder="Email Address" 
               className="w-full p-3 sm:p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base" 
               onChange={e => setEmail(e.target.value)} />
-            <input type="password" placeholder="รหัสผ่าน (Password)" 
+            <input type="password" placeholder="Password" 
               className="w-full p-3 sm:p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base" 
               onChange={e => setPassword(e.target.value)} />
         </div>
 
         <button type="submit" disabled={loading || !!success} 
           className="w-full bg-gray-900 text-white p-3 sm:p-4 rounded-xl font-bold hover:bg-gray-800 transition-all shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed mt-1">
-            {loading ? "กำลังดำเนินการ..." : "เข้าสู่ระบบ"}
+            {loading ? "Waiting..." : "Sign In"}
         </button>
 
         <p className="text-center text-sm text-gray-600 mt-2">
-            ยังไม่มีบัญชีใช่ไหม? <Link href="/register" className="text-blue-600 font-semibold hover:underline">สมัครสมาชิก</Link>
+            Don't have an account? <Link href="/register" className="text-blue-600 font-semibold hover:underline">Create an account</Link>
         </p>
       </form>
     </main>
