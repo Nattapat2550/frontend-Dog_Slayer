@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/* บังคับใช้สีสว่าง (Light Mode) เสมอ เพื่อให้เว็บดูสะอาดตา */
+:root {
+  --background: #fafafa; /* สีขาวอมเทานิดๆ ให้ดูแพง */
+  --foreground: #171717; /* สีตัวอักษรหลัก */
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
