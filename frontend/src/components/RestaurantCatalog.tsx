@@ -33,7 +33,6 @@ export default async function RestaurantCatalog({restaurantsJson}:{restaurantsJs
                     className="w-16 h-16 rounded-full object-cover"/>
                     <div className="flex flex-col text-left">
                         <h2 className="text-lg font-semibold">{item.name}</h2>
-
                         <div className="flex gap-4 text-sm text-gray-600 mt-1">
                             <span>📍 Address: {item.address}</span>
                             <span>📞 Telephone: {item.tel}</span>
