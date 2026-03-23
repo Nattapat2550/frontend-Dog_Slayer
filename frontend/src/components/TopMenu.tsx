@@ -39,7 +39,7 @@ export default function TopMenu() {
 
         {/* เมนูสำหรับจอ Desktop */}
         <div className="hidden md:flex gap-4 md:gap-8 items-center font-medium">
-          <Link href="/venue" className="text-gray-600 hover:text-orange-600 transition">Restaurants</Link>
+          <Link href="/restaurant" className="text-gray-600 hover:text-orange-600 transition">Restaurants</Link>
           
           {session ? (
             <>
