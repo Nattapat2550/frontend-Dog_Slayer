@@ -1,4 +1,4 @@
-export interface RestaurantItem {
+interface RestaurantItem {
   _id: string;
   name: string;
   address: string;
@@ -12,14 +12,15 @@ export interface RestaurantItem {
   id: string;
 }
 
-export interface RestaurantJson {
+interface RestaurantJson {
   success: boolean;
   count: number;
   pagination: Object;
   data: RestaurantItem[];
 }
 
-export interface ReservationItem {
+interface ReservationItem {
+  ResId: string;
   name: string;
   tel: string;
   restaurant: string
