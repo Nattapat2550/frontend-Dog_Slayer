@@ -31,7 +31,6 @@ export default async function RestaurantCatalog({restaurantsJson}:{restaurantsJs
                     <img src={"/img/restaurant/" + item.name + ".png"}
                     alt="logo"
                     className="w-16 h-16 rounded-full object-cover"/>
-
                     <div className="flex flex-col text-left">
                         <h2 className="text-lg font-semibold">{item.name}</h2>
 
@@ -41,7 +40,6 @@ export default async function RestaurantCatalog({restaurantsJson}:{restaurantsJs
                         </div>
                     </div>
                 </div>
-
                 </Link>
             ))}
             </div>
