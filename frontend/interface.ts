@@ -6,10 +6,8 @@ export interface RestaurantItem {
   province: string;
   postalcode: string;
   tel: string;
-  logo: string;
-  picture: string;
-  openTime: string;
-  closeTime: string;
+  opentime: string;
+  closetime: string;
   __v: number;
   id: string;
 }

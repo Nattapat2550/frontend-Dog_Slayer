@@ -1,11 +1,8 @@
+"use client"
 import React from "react";
 import { ReservationItem, RestaurantItem } from "interface";
 
-type Props = {
-    restaurant: RestaurantItem;
-};
-
-const InfoCard: React.FC<Props> = ({ restaurant }) => {
+export default function InfoCard({ restaurant } : { restaurant: RestaurantItem }) {
     return (
     <div className="bg-white rounded-2xl border p-6 shadow-sm space-y-4">
         {/* Address */}
@@ -14,7 +11,7 @@ const InfoCard: React.FC<Props> = ({ restaurant }) => {
             <div>
                 <p className="font-semibold">Address :</p>
                 <p className="text-gray-600 text-sm">
-                    {restaurant.address}, {restaurant.district}, {restaurant.province}, {restaurant.postalcode}
+                    {restaurant.address}
                 </p>
             </div>
         </div>
@@ -36,12 +33,10 @@ const InfoCard: React.FC<Props> = ({ restaurant }) => {
             <div>
                 <p className="font-semibold">Operating Hours :</p>
                 <p className="text-gray-600 text-sm">
-                    {restaurant.openTime} - {restaurant.closeTime}
+                    {restaurant.opentime} - {restaurant.closetime}
                 </p>
             </div>
         </div>
     </div>
     );
 };
-
-export default InfoCard;

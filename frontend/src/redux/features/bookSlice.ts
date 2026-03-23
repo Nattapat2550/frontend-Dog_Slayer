@@ -1,31 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BookingItem } from "../../../interface";
+import { ReservationItem } from "interface";
 
-interface BookState {
-  bookItems: BookingItem[];
+interface ReservationState {
+  reservationItems: ReservationItem[];
 }
 
-const initialState: BookState = { bookItems: [] };
+const initialState: ReservationState = { reservationItems: [] };
 
-export const bookSlice = createSlice({
-  name: "book",
+export const reservationSlice = createSlice({
+  name: "reservation",
   initialState,
   reducers: {
-    addBooking: (state: BookState, action: PayloadAction<BookingItem>) => {
+    addReservation: (state: ReservationState, action: PayloadAction<ReservationItem>) => {
       // เพิ่มข้อมูลลงใน state
-      state.bookItems.push(action.payload);
+      state.reservationItems.push(action.payload);
     },
-    removeBooking: (state: BookState, action: PayloadAction<BookingItem>) => {
+    removeReservation: (state: ReservationState, action: PayloadAction<ReservationItem>) => {
       // ตัวอย่างการลบข้อมูล (เอาข้อมูลที่ชื่อและวันที่ไม่ตรงกันไว้)
-      state.bookItems = state.bookItems.filter(
-        (item) => item.nameLastname !== action.payload.nameLastname || item.bookDate !== action.payload.bookDate
+      state.reservationItems = state.reservationItems.filter(
+        (item) => item.name !== action.payload.name || item.reservationDate !== action.payload.reservationDate
       );
     }
   }
 });
 
-// 1. ส่งออก Actions ให้ booking/page.tsx นำไปใช้ (แก้ Error 2305)
-export const { addBooking, removeBooking } = bookSlice.actions;
-
-// 2. ส่งออก Reducer เป็น Default ให้ store.ts นำไปใช้ (แก้ Error 2613)
-export default bookSlice.reducer;
+export const { addReservation, removeReservation } = reservationSlice.actions;
+export default reservationSlice.reducer;
