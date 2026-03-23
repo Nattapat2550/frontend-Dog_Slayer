@@ -12,7 +12,7 @@ export default function TopMenu() {
     <>
       <nav className="fixed top-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-md shadow-sm border-b z-50 flex items-center justify-between px-4 md:px-12 transition-all">
         {/* Logo และ ชื่อแบรนด์ */}
-        <Link href="/" className="flex items-center gap-2 text-2xl font-extrabold text-blue-600 tracking-tight">
+        <Link href="/" className="flex items-center gap-2 text-2xl font-extrabold text-orange-600 tracking-tight">
           <Image 
             src="/img/logo.png" 
             alt="DogSlayer Logo" 
@@ -25,7 +25,7 @@ export default function TopMenu() {
         
         {/* Hamburger Icon สำหรับจอมือถือ */}
         <button 
-          className="md:hidden text-gray-600 hover:text-blue-600 focus:outline-none p-2"
+          className="md:hidden text-gray-600 hover:text-orange-600 focus:outline-none p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,14 +39,14 @@ export default function TopMenu() {
 
         {/* เมนูสำหรับจอ Desktop */}
         <div className="hidden md:flex gap-4 md:gap-8 items-center font-medium">
-          <Link href="/venue" className="text-gray-600 hover:text-blue-600 transition">Restaurants</Link>
+          <Link href="/venue" className="text-gray-600 hover:text-orange-600 transition">Restaurants</Link>
           
           {session ? (
             <>
               {session.user.role === "admin" ? (
-                <Link href="/admin/manage" className="text-gray-600 hover:text-blue-600">Admin Panel</Link>
+                <Link href="/admin/manage" className="text-gray-600 hover:text-orange-600">Admin Panel</Link>
               ) : (
-                <Link href="/mybooking" className="text-gray-600 hover:text-blue-600">My Bookings</Link>
+                <Link href="/mybooking" className="text-gray-600 hover:text-orange-600">My Bookings</Link>
               )}
               <button 
                 onClick={() => signOut({ callbackUrl: '/' })} 
@@ -57,8 +57,8 @@ export default function TopMenu() {
             </>
           ) : (
             <>
-              <Link href="/login" className="text-gray-600 hover:text-blue-600 transition">Log In</Link>
-              <Link href="/register" className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition shadow-md shadow-blue-500/30">
+              <Link href="/login" className="text-gray-600 hover:text-orange-600 transition">Log In</Link>
+              <Link href="/register" className="bg-orange-600 text-white px-5 py-2 rounded-full hover:bg-orange-700 transition shadow-md shadow-orange-500/30">
                 Register
               </Link>
             </>
@@ -70,16 +70,16 @@ export default function TopMenu() {
       {isMobileMenuOpen && (
         <div className="fixed top-16 left-0 right-0 bg-white border-b shadow-lg z-40 md:hidden flex flex-col p-4 gap-3 font-medium animate-fade-in-down">
           {/* จัด Restaurants ให้อยู่กึ่งกลาง */}
-          <Link href="/venue" className="text-center text-gray-600 hover:text-blue-600 py-2 rounded-xl hover:bg-gray-50 transition" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link href="/venue" className="text-center text-gray-600 hover:text-orange-600 py-2 rounded-xl hover:bg-gray-50 transition" onClick={() => setIsMobileMenuOpen(false)}>
             Restaurants
           </Link>
           
           {session ? (
             <>
               {session.user.role === "admin" ? (
-                <Link href="/admin/manage" className="text-center text-gray-600 hover:text-blue-600 py-2 rounded-xl hover:bg-gray-50 transition" onClick={() => setIsMobileMenuOpen(false)}>Admin Panel</Link>
+                <Link href="/admin/manage" className="text-center text-gray-600 hover:text-orange-600 py-2 rounded-xl hover:bg-gray-50 transition" onClick={() => setIsMobileMenuOpen(false)}>Admin Panel</Link>
               ) : (
-                <Link href="/mybooking" className="text-center text-gray-600 hover:text-blue-600 py-2 rounded-xl hover:bg-gray-50 transition" onClick={() => setIsMobileMenuOpen(false)}>My Bookings</Link>
+                <Link href="/mybooking" className="text-center text-gray-600 hover:text-orange-600 py-2 rounded-xl hover:bg-gray-50 transition" onClick={() => setIsMobileMenuOpen(false)}>My Bookings</Link>
               )}
               <div className="pt-2 border-t mt-1">
                 <button 
@@ -96,7 +96,7 @@ export default function TopMenu() {
           ) : (
             <div className="flex flex-col gap-2 pt-2 border-t mt-1">
               <Link href="/login" className="text-center bg-gray-50 text-gray-700 px-5 py-3 rounded-xl hover:bg-gray-100 transition" onClick={() => setIsMobileMenuOpen(false)}>Log In</Link>
-              <Link href="/register" className="text-center bg-blue-600 text-white px-5 py-3 rounded-xl hover:bg-blue-700 transition shadow-md" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
+              <Link href="/register" className="text-center bg-orange-600 text-white px-5 py-3 rounded-xl hover:bg-orange-700 transition shadow-md" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
             </div>
           )}
         </div>
