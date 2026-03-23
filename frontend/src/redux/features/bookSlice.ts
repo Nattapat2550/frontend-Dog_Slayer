@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ReservationItem } from "interface";
 
 interface ReservationState {
   reservationItems: ReservationItem[];
