@@ -29,7 +29,7 @@ const limiter = rateLimit({
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://frontend-dog-slayer.vercel.app', 
+    origin: 'http://localhost:5000/', 
     credentials: true
 }));
 app.use(mongoSanitize()); 
