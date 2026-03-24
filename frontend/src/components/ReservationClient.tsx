@@ -53,13 +53,21 @@ export default function Reservation({ restaurants }: { restaurants: RestaurantIt
         const open = reserveDate.hour(openH).minute(openM).second(0);
         const close = reserveDate.hour(closeH).minute(closeM).second(0);
 
-        //Check Way la
-        return (
+        // กรณีปกติ (ไม่ข้ามวัน)
+        if (open.isBefore(close)) {
+            return (
             (reserveDate.isAfter(open) || reserveDate.isSame(open)) &&
             (reserveDate.isBefore(close) || reserveDate.isSame(close))
+            );
+        }
+
+        // กรณีข้ามวัน
+        return (
+            reserveDate.isAfter(open) || reserveDate.isSame(open) ||
+            reserveDate.isBefore(close) || reserveDate.isSame(close)
         );
     };
-
+    
     const makeReservation = () => {
         if (name && tel && reserveDate && time && restaurant.address) {
 
