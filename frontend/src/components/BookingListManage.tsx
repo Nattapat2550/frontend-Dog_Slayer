@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { updateReservation } from "@/redux/features/bookSlice";
+import dayjs, { Dayjs } from "dayjs";
 
 export default function BookingList () {
     const bookItems = useAppSelector((state)=> state.bookSlice.reservationItems)
@@ -13,6 +14,34 @@ export default function BookingList () {
     const [selectedItem, setSelectedItem] = useState<ReservationItem | null>(null);
     const [editDate, setEditDate] = useState("");
     const [editTime, setEditTime] = useState("");
+
+    const isWithinOpeningHours = (
+        reserveDate: Dayjs,
+        openTime: string,
+        closeTime: string
+        ) => {
+        const [openH, openM] = openTime.split(":").map(Number);
+        const [closeH, closeM] = closeTime.split(":").map(Number);
+
+        let open = reserveDate.hour(openH).minute(openM).second(0);
+        let close = reserveDate.hour(closeH).minute(closeM).second(0);
+
+        const now = dayjs();
+        if (reserveDate.isBefore(now)) return false;
+
+        if (close.isBefore(open)) {
+            close = close.add(1, "day");
+
+            if (reserveDate.isBefore(open)) {
+            reserveDate = reserveDate.add(1, "day");
+            }
+        }
+
+        return (
+            (reserveDate.isAfter(open) || reserveDate.isSame(open)) &&
+            (reserveDate.isBefore(close) || reserveDate.isSame(close))
+        );
+    };
 
     if (!session?.user?.email) {
         return (
@@ -124,14 +153,14 @@ export default function BookingList () {
                                 />
                                 <button
                                 onClick={() => {
-                                    console.log("start update")
                                     if (!editDate || !editTime) {
                                         alert("Please fill date and time")
                                         return
                                     }
 
+                                    const selected = dayjs(`${editDate} ${editTime}`);
+
                                     const updatedDate = new Date(`${editDate}T${editTime}`)
-                                    console.log(updatedDate)
                                     const updatedItem = {
                                         ...item,
                                         reservationDate: updatedDate.toString()
