@@ -9,7 +9,7 @@ export default async function RestaurantDetailPage({params}: {params: Promise<{r
         <main className="text-center p-5">
             <h1 className="text-lg font-medium">{restaurantDetail.data.name}</h1>
             <div className="flex flex-row my-5">
-                <Image src={restaurantDetail.data.picture}
+                <Image src={`/img/restaurant/banner/${restaurantDetail.data.name}.png`}
                     alt="Product Pocture"
                     width={0} height={0} sizes="100vw"
                     className="rounded-lg w-[30%] bg-black"/>
