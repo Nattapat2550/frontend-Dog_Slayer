@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 
@@ -50,21 +50,24 @@ export default function Reservation({ restaurants }: { restaurants: RestaurantIt
         const [openH, openM] = openTime.split(":").map(Number);
         const [closeH, closeM] = closeTime.split(":").map(Number);
 
-        const open = reserveDate.hour(openH).minute(openM).second(0);
-        const close = reserveDate.hour(closeH).minute(closeM).second(0);
+        let open = reserveDate.hour(openH).minute(openM).second(0);
+        let close = reserveDate.hour(closeH).minute(closeM).second(0);
 
-        // กรณีปกติ (ไม่ข้ามวัน)
-        if (open.isBefore(close)) {
-            return (
-            (reserveDate.isAfter(open) || reserveDate.isSame(open)) &&
-            (reserveDate.isBefore(close) || reserveDate.isSame(close))
-            );
+        const now = dayjs();
+        if (reserveDate.isBefore(now)) return false;
+
+        // ถ้าข้ามวัน
+        if (close.isBefore(open)) {
+            close = close.add(1, "day");
+
+            if (reserveDate.isBefore(open)) {
+            reserveDate = reserveDate.add(1, "day");
+            }
         }
 
-        // กรณีข้ามวัน
         return (
-            reserveDate.isAfter(open) || reserveDate.isSame(open) ||
-            reserveDate.isBefore(close) || reserveDate.isSame(close)
+            (reserveDate.isAfter(open) || reserveDate.isSame(open)) &&
+            (reserveDate.isBefore(close) || reserveDate.isSame(close))
         );
     };
 
@@ -78,7 +81,7 @@ export default function Reservation({ restaurants }: { restaurants: RestaurantIt
                 .second(0);
             
             if (!isWithinOpeningHours(selected, restaurant.opentime, restaurant.closetime)) {
-                alert(`Restaurant is open from ${restaurant.opentime} to ${restaurant.closetime}`);
+                alert(`Restaurant is open from ${restaurant.opentime} to ${restaurant.closetime} and must not be the past`);
                 return;
             }
 
