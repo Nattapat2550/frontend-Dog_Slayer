@@ -1,7 +1,7 @@
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 
 export default async function userLogIn(email: string, password: string) {
-  const response = await fetch(`${BACKEND_URL}/api/v1/auth/login`, {
+  const response = await fetch(`https://backend-dog-slayer.vercel.app/api/v1/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -13,7 +13,7 @@ export default async function userLogIn(email: string, password: string) {
   }
   const data = await response.json();
   
-  const profileRes = await fetch(`${BACKEND_URL}/api/v1/auth/me`, {
+  const profileRes = await fetch(`https://backend-dog-slayer.vercel.app/api/v1/auth/me`, {
     headers: { Authorization: `Bearer ${data.token}` }
   });
   

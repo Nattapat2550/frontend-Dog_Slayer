@@ -56,7 +56,7 @@ export default function Reservation({ restaurants }: { restaurants: RestaurantIt
         const now = dayjs();
         if (reserveDate.isBefore(now)) return false;
 
-        // 🔥 ถ้าข้ามวัน
+        // ถ้าข้ามวัน
         if (close.isBefore(open)) {
             close = close.add(1, "day");
 
