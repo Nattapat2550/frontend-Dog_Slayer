@@ -8,6 +8,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { addReservation } from "@/redux/features/bookSlice";
+import { useSession } from 'next-auth/react';
 
 import TextField from "@mui/material/TextField";
 
@@ -27,6 +28,7 @@ export default function Reservation({ restaurants }: { restaurants: RestaurantIt
     }, [rid, restaurants])
 
     const bookItems = useAppSelector((state)=> state.bookSlice.reservationItems)
+    const { data: session } = useSession();
     const [name, setName] = useState("");
     const [tel, setTel] = useState("");
     const [reserveDate, setReserveDate] = useState<Dayjs | null>(null);
@@ -34,6 +36,10 @@ export default function Reservation({ restaurants }: { restaurants: RestaurantIt
     const [restaurant, setRestaurant] = useState<RestaurantItem>(restaurants[0]);
 
     const dispatch = useDispatch<AppDispatch>()
+
+    const userBookings = bookItems.filter(
+        (item) => item.userEmail === session?.user?.email
+    );
 
     //For check Hour
     const isWithinOpeningHours = (
@@ -74,10 +80,11 @@ export default function Reservation({ restaurants }: { restaurants: RestaurantIt
                 restaurant: restaurant.name,
                 address: restaurant.address,
                 reservationDate: selected.toString(),
+                userEmail: session?.user?.email!
             }
 
-            if (bookItems.length >= 3) {
-                alert(`Maximum Reservation Booking (3)`);
+            if (session?.user?.role !== "admin" && userBookings.length >= 3) {
+                alert("Maximum Reservation Booking (3)");
                 return;
             }
 
