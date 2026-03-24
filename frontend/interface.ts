@@ -20,7 +20,6 @@ interface RestaurantJson {
 }
 
 interface ReservationItem {
-  ResId: string;
   name: string;
   tel: string;
   restaurant: string
