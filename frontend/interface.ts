@@ -25,4 +25,5 @@ interface ReservationItem {
   restaurant: string
   address: string;
   reservationDate: string;
+  userEmail: string;
 }

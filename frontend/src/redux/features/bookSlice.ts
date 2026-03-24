@@ -37,9 +37,19 @@ export const reservationSlice = createSlice({
           item.reservationDate === action.payload.reservationDate
         )
       );
+    },
+    updateReservation: (state, action: PayloadAction<ReservationItem>) => {
+      const index = state.reservationItems.findIndex(item =>
+        item.restaurant === action.payload.restaurant &&
+        item.reservationDate === action.payload.reservationDate
+      );
+
+      if (index !== -1) {
+        state.reservationItems[index] = action.payload;
+      }
     }
   }
 });
 
-export const { addReservation, removeReservation } = reservationSlice.actions;
+export const { addReservation, removeReservation, updateReservation } = reservationSlice.actions;
 export default reservationSlice.reducer;
