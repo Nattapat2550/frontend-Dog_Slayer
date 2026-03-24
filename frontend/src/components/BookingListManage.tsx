@@ -22,12 +22,9 @@ export default function BookingList () {
         )
     }
 
-
     if (session.user.role !== "admin") {
         return (
-            <div className="text-center mt-10 text-gray-500">
-                Admin Access Only
-            </div>
+            <div className="text-center mt-10 text-gray-500">Admin Access Only</div>
         )
     }
 
@@ -38,17 +35,13 @@ export default function BookingList () {
             </div>
         {   
             bookItems.length === 0 ? (
-                <div className="text-center text-gray-500 mt-5">
-                    No Restaurant Booking
-                </div>
+                <div className="text-center text-gray-500 mt-5">No Restaurant Booking</div>
             ) : (
                 bookItems.map((item, key)=> (
                 <div key={key} className="flex items-center gap-4">
 
                     {/* Number */}
-                    <div className="text-orange-500 text-3xl font-bold w-8">
-                    {key + 1}.
-                    </div>
+                    <div className="text-orange-500 text-3xl font-bold w-8">{key + 1}.</div>
 
                     {/* Card */}
                     <div className="relative flex items-center w-full h-[90px] rounded-xl overflow-hidden shadow-md">
@@ -90,56 +83,72 @@ export default function BookingList () {
 
                     {/* Button */}
                     <button
-                        onClick={()=>setSelectedItem(selectedItem === item ? null : item)}
+                        onClick={() => {
+                            if (selectedItem === item) {
+                                setSelectedItem(null)
+                            } else {
+                                setSelectedItem(item)
+
+                                const date = new Date(item.reservationDate)
+                                const yyyy = date.toISOString().split("T")[0]
+                                const hhmm = date.toTimeString().slice(0,5)
+
+                                setEditDate(yyyy)
+                                setEditTime(hhmm)
+                            }
+                        }}
                         className="h-full w-16 bg-orange-500 hover:bg-orange-600 flex items-center justify-center text-white text-xl font-bold z-10"
                     >
                         :
                     </button>
 
                     </div>
-                    {selectedItem === item && (
-                        <div className="bg-orange-500 p-4 rounded-xl mt-2 w-full">
+                    {selectedItem?.reservationDate === item.reservationDate && (
+                        <div className="bg-orange-500 p-3 rounded-xl w-200">
                             
-                            <div className="bg-white p-4 rounded-lg">
+                            <div className="bg-white p-3 rounded-lg">
                             <div className="font-semibold mb-2">Edit Reservation</div>
-
-                            <input
+                            <div className="flex gap-2">
+                                <input
                                 type="date"
                                 value={editDate}
                                 onChange={(e) => setEditDate(e.target.value)}
-                                className="w-full border p-2 mb-2 rounded"
-                            />
+                                className="w-full border p-2 rounded"
+                                />
 
-                            <input
+                                <input
                                 type="time"
                                 value={editTime}
                                 onChange={(e) => setEditTime(e.target.value)}
-                                className="w-full border p-2 mb-3 rounded"
-                            />
-
-                            <div className="flex gap-2">
+                                className="w-full border p-2 rounded"
+                                />
                                 <button
                                 onClick={() => {
+                                    console.log("start update")
                                     if (!editDate || !editTime) {
-                                    alert("Please fill date and time");
-                                    return;
+                                        alert("Please fill date and time")
+                                        return
                                     }
 
+                                    const updatedDate = new Date(`${editDate}T${editTime}`)
+                                    console.log(updatedDate)
                                     const updatedItem = {
-                                    ...item,
-                                    reservationDate: `${editDate} ${editTime}`
-                                    };
+                                        ...item,
+                                        reservationDate: updatedDate.toString()
+                                    }
 
-                                    dispatch(updateReservation(updatedItem));
-                                    setSelectedItem(null);
+                                    dispatch(updateReservation({
+                                        ...updatedItem,
+                                        oldReservationDate: item.reservationDate
+                                    }))
+                                    setSelectedItem(null)
                                 }}
-                                className="bg-orange-500 text-white px-4 py-1 rounded">
-                                Update
-                                </button>
+                                className="w-20     bg-orange-500 text-white px-4 py-1 rounded">Update</button>
+
                                 <button
                                 onClick={()=>dispatch(removeReservation(item))}
-                                className="bg-red-500 text-white px-4 py-1 rounded">
-                                Delete
+                                className="w-20 bg-red-500 text-white px-4 py-1 rounded">
+                                    Delete
                                 </button>
                             </div>
                             </div>

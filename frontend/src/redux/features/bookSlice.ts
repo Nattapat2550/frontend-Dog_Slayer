@@ -11,8 +11,6 @@ export const reservationSlice = createSlice({
   initialState,
   reducers: {
     addReservation: (state, action: PayloadAction<ReservationItem>) => {
-      // เพิ่มข้อมูลลงใน state
-
       if (!state.reservationItems) {
         state.reservationItems = [];
       }
@@ -38,14 +36,17 @@ export const reservationSlice = createSlice({
         )
       );
     },
-    updateReservation: (state, action: PayloadAction<ReservationItem>) => {
+    updateReservation: (state, action: PayloadAction<any>) => {
       const index = state.reservationItems.findIndex(item =>
         item.restaurant === action.payload.restaurant &&
-        item.reservationDate === action.payload.reservationDate
+        item.reservationDate === action.payload.oldReservationDate
       );
 
       if (index !== -1) {
-        state.reservationItems[index] = action.payload;
+        state.reservationItems[index] = {
+          ...state.reservationItems[index],
+          reservationDate: action.payload.reservationDate
+        };
       }
     }
   }

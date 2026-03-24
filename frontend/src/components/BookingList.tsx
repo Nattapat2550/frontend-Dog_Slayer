@@ -3,11 +3,16 @@ import { removeReservation } from "@/redux/features/bookSlice"
 import { AppDispatch, useAppSelector } from "@/redux/store"
 import { useDispatch } from "react-redux"
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { updateReservation } from "@/redux/features/bookSlice";
 
 export default function BookingList () {
     const bookItems = useAppSelector((state)=> state.bookSlice.reservationItems)
     const dispatch = useDispatch<AppDispatch>()
     const { data: session } = useSession();
+    const [selectedItem, setSelectedItem] = useState<ReservationItem | null>(null);
+    const [editDate, setEditDate] = useState("");
+    const [editTime, setEditTime] = useState("");
 
     if (!session?.user?.email) {
         return (
@@ -80,15 +85,81 @@ export default function BookingList () {
 
                     {/* Button */}
                     <button
-                        onClick={()=>dispatch(removeReservation(item))}
+                        onClick={() => {
+                            if (selectedItem === item) {
+                                setSelectedItem(null)
+                            } else {
+                                setSelectedItem(item)
+
+                                const date = new Date(item.reservationDate)
+                                const yyyy = date.toISOString().split("T")[0]
+                                const hhmm = date.toTimeString().slice(0,5)
+
+                                setEditDate(yyyy)
+                                setEditTime(hhmm)
+                            }
+                        }}
                         className="h-full w-16 bg-orange-500 hover:bg-orange-600 flex items-center justify-center text-white text-xl font-bold z-10"
                     >
-                        –
+                        :
                     </button>
+
                     </div>
+                    {selectedItem?.reservationDate === item.reservationDate && (
+                        <div className="bg-orange-500 p-3 rounded-xl w-200">
+                            
+                            <div className="bg-white p-3 rounded-lg">
+                            <div className="font-semibold mb-2">Edit Reservation</div>
+                            <div className="flex gap-2">
+                                <input
+                                type="date"
+                                value={editDate}
+                                onChange={(e) => setEditDate(e.target.value)}
+                                className="w-full border p-2 rounded"
+                                />
+
+                                <input
+                                type="time"
+                                value={editTime}
+                                onChange={(e) => setEditTime(e.target.value)}
+                                className="w-full border p-2 rounded"
+                                />
+                                <button
+                                onClick={() => {
+                                    console.log("start update")
+                                    if (!editDate || !editTime) {
+                                        alert("Please fill date and time")
+                                        return
+                                    }
+
+                                    const updatedDate = new Date(`${editDate}T${editTime}`)
+                                    console.log(updatedDate)
+                                    const updatedItem = {
+                                        ...item,
+                                        reservationDate: updatedDate.toString()
+                                    }
+
+                                    dispatch(updateReservation({
+                                        ...updatedItem,
+                                        oldReservationDate: item.reservationDate
+                                    }))
+                                    setSelectedItem(null)
+                                }}
+                                className="w-20     bg-orange-500 text-white px-4 py-1 rounded">Update</button>
+
+                                <button
+                                onClick={()=>dispatch(removeReservation(item))}
+                                className="w-20 bg-red-500 text-white px-4 py-1 rounded">
+                                    Delete
+                                </button>
+                            </div>
+                            </div>
+
+                        </div>
+                    )}
                 </div>
-                ))
-    )
+            ))
+        )
     }
     </div>
     )
