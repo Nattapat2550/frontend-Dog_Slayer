@@ -19,7 +19,7 @@ export default function TopMenu() {
             width={32} 
             height={32} 
             className="w-8 h-8 object-contain drop-shadow-sm" 
-          />a
+          />
           <div>Dog<span className="text-gray-800">Slayer</span></div>
         </Link>
         
@@ -70,7 +70,7 @@ export default function TopMenu() {
       {isMobileMenuOpen && (
         <div className="fixed top-16 left-0 right-0 bg-white border-b shadow-lg z-40 md:hidden flex flex-col p-4 gap-3 font-medium animate-fade-in-down">
           {/* จัด Restaurants ให้อยู่กึ่งกลาง */}
-          <Link href="/venue" className="text-center text-gray-600 hover:text-orange-600 py-2 rounded-xl hover:bg-gray-50 transition" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link href="/restaurant" className="text-center text-gray-600 hover:text-orange-600 py-2 rounded-xl hover:bg-gray-50 transition" onClick={() => setIsMobileMenuOpen(false)}>
             Restaurants
           </Link>
           
