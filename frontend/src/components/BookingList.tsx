@@ -126,14 +126,12 @@ export default function BookingList () {
                                 />
                                 <button
                                 onClick={() => {
-                                    console.log("start update")
                                     if (!editDate || !editTime) {
                                         alert("Please fill date and time")
                                         return
                                     }
 
                                     const updatedDate = new Date(`${editDate}T${editTime}`)
-                                    console.log(updatedDate)
                                     const updatedItem = {
                                         ...item,
                                         reservationDate: updatedDate.toString()
