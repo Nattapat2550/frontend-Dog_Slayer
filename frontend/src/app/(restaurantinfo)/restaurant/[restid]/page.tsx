@@ -50,13 +50,11 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
-                        <Link href="/reservation">
-                            <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition">
-                                Booking Now
-                            </button>
-                        </Link>
-                    </div>
+                    <Link href={`/reservation?rid=${data.id}&rname=${encodeURIComponent(data.name)}`}>
+                        <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition mt-5">
+                            Booking Now
+                        </button>
+                    </Link>
                 </div>
             </div>
             <Link href={`/restaurant/${nextId}`}>

@@ -2,9 +2,25 @@
 
 import React, { useState } from "react";
 import { Select, MenuItem } from '@mui/material'
+import { useSearchParams } from "next/navigation"
+import { useEffect } from "react"
 
 export default function HeroCard({ restaurant, restaurants, onSelect } : { restaurant:RestaurantItem, restaurants: RestaurantItem[], onSelect: (r: RestaurantItem) => void; }) {
+    const searchParams = useSearchParams()
 
+    const rid = searchParams.get("rid")
+
+    const [selectedId, setSelectedId] = useState("")
+
+    useEffect(() => {
+    if (rid && restaurants.some(r => r.id === rid)) {
+        setSelectedId(rid)
+    } else if (restaurants.length > 0) {
+        setSelectedId(restaurants[0].id)
+        onSelect(restaurants[0])
+    }
+    }, [rid, restaurants])
+    
     return (
         <div className="relative w-full h-[240px] rounded-2xl overflow-hidden shadow-md">
 
@@ -45,11 +61,13 @@ export default function HeroCard({ restaurant, restaurants, onSelect } : { resta
             {/* Dropdown */}
             <Select
                 variant='standard'
-                value={restaurant.id}
+                value={selectedId}
                 onChange={(e) => {
-                    const value = e.target.value as string;
-                    const selected = restaurants.find(r => r.id === e.target.value);
-                    if (selected) onSelect(selected); //ส่งกลับ parent na kub
+                    const value = e.target.value as string
+                    setSelectedId(value)
+
+                    const selected = restaurants.find(r => r.id === value)
+                    if (selected) onSelect(selected)
                 }}
                 MenuProps={{
                     disableScrollLock: true

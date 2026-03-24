@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Dayjs } from "dayjs";
+import { useSearchParams } from "next/navigation"
+import { useEffect } from "react"
 
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
@@ -14,6 +16,15 @@ import InfoCard from "@/components/InfoCard";
 import BookingCard from "@/components/BookingCard";
 
 export default function Reservation({ restaurants }: { restaurants: RestaurantItem[] }) {
+    const searchParams = useSearchParams()
+    const rid = searchParams.get("rid")
+    
+    useEffect(() => {
+        if (rid) {
+            const found = restaurants.find(r => r.id === rid)
+            if (found) setRestaurant(found)
+        }
+    }, [rid, restaurants])
 
     const bookItems = useAppSelector((state)=> state.bookSlice.reservationItems)
     const [name, setName] = useState("");
