@@ -51,7 +51,7 @@ export default function RestaurantCatalog({ restaurantsJSON }: { restaurantsJSON
                 <Link href={`/restaurant/${item.id}`} key={item.id}>
                 
                 <div className="flex items-center gap-4 p-4 border rounded-2xl hover:shadow-md transition">
-                    <img src={"/img/restaurant/" + item.name + ".png"}
+                    <img src={"/img/restaurant/logo/" + item.name + ".png"}
                     alt="logo"
                     className="w-16 h-16 rounded-full object-cover"/>
                     <div className="flex flex-col text-left">

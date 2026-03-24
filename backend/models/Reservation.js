@@ -10,6 +10,14 @@ const ReservationSchema = new mongoose.Schema({
         required: true,
         match: [/^([01]\d|2[0-3]):([0-5]\d)$/, 'Please add valid time HH:MM']
     },
+    name: {
+        type: String,
+        required: [true, 'Please add a name']
+    },
+    tel: {
+        type: String,
+        required: [true, 'Please add a telephone number']
+    },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",

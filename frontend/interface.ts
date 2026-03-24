@@ -6,7 +6,8 @@ interface RestaurantItem {
   province: string;
   postalcode: string;
   tel: string;
-  picture: string;
+  opentime: string;
+  closetime: string;
   __v: number;
   id: string;
 }
@@ -19,11 +20,9 @@ interface RestaurantJson {
 }
 
 interface ReservationItem {
-  ResId: string;
   name: string;
   tel: string;
   restaurant: string
   address: string;
   reservationDate: string;
-  numberOfGuests: number;
 }
