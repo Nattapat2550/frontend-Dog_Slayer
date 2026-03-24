@@ -19,7 +19,7 @@ export default function TopMenu() {
             width={32} 
             height={32} 
             className="w-8 h-8 object-contain drop-shadow-sm" 
-          />a
+          />
           <div>Dog<span className="text-gray-800">Slayer</span></div>
         </Link>
         
