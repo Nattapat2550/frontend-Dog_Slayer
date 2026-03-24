@@ -46,7 +46,7 @@ export default function TopMenu() {
               {session.user.role === "admin" ? (
                 <Link href="/admin/manage" className="text-gray-600 hover:text-orange-600">Admin Panel</Link>
               ) : (
-                <Link href="/mybooking" className="text-gray-600 hover:text-orange-600">My Bookings</Link>
+                <Link href="/mybookings" className="text-gray-600 hover:text-orange-600">My Bookings</Link>
               )}
               <button 
                 onClick={() => signOut({ callbackUrl: '/' })} 

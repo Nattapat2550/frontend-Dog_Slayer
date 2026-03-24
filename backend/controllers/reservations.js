@@ -103,11 +103,11 @@ exports.addReservation = async (req, res, next) => {
             });
         }
 
-        // Ensure time is provided
-        if (!req.body.time) {
+        // Ensure time, name, and tel are provided
+        if (!req.body.time || !req.body.name || !req.body.tel) {
             return res.status(400).json({
                 success: false,
-                message: "Please provide reservation time"
+                message: "Please provide reservation time, name, and telephone number"
             });
         }
 
@@ -207,11 +207,11 @@ exports.updateReservation = async (req, res, next) => {
             });
         }
 
-        // Ensure time is provided
-        if (!req.body.time) {
+        // Ensure time, name, and tel are provided
+        if (!req.body.time || !req.body.name || !req.body.tel) {
             return res.status(400).json({
                 success: false,
-                message: "Please provide reservation time"
+                message: "Please provide reservation time, name, and telephone number"
             });
         }
 

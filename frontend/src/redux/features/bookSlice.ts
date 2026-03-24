@@ -1,24 +1,41 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ReservationItem } from "interface";
 
 interface ReservationState {
   reservationItems: ReservationItem[];
 }
 
-const initialState: ReservationState = { reservationItems: [] };
+const initialState: ReservationState = { reservationItems: [], };
 
 export const reservationSlice = createSlice({
   name: "reservation",
   initialState,
   reducers: {
-    addReservation: (state: ReservationState, action: PayloadAction<ReservationItem>) => {
+    addReservation: (state, action: PayloadAction<ReservationItem>) => {
       // เพิ่มข้อมูลลงใน state
-      state.reservationItems.push(action.payload);
+
+      if (!state.reservationItems) {
+        state.reservationItems = [];
+      }
+      const index = state.reservationItems.findIndex(item =>
+        item.restaurant === action.payload.restaurant &&
+        item.reservationDate === action.payload.reservationDate
+      );
+
+      if (index !== -1) {
+        state.reservationItems[index] = action.payload;
+      } else {
+        state.reservationItems.push(action.payload);
+      }
     },
-    removeReservation: (state: ReservationState, action: PayloadAction<ReservationItem>) => {
+    removeReservation: (state, action: PayloadAction<ReservationItem>) => {
       // ตัวอย่างการลบข้อมูล (เอาข้อมูลที่ชื่อและวันที่ไม่ตรงกันไว้)
-      state.reservationItems = state.reservationItems.filter(
-        (item) => item.name !== action.payload.name || item.reservationDate !== action.payload.reservationDate
+      state.reservationItems = state.reservationItems.filter(item =>
+        !(
+          item.name === action.payload.name &&
+          item.tel === action.payload.tel &&
+          item.restaurant === action.payload.restaurant &&
+          item.reservationDate === action.payload.reservationDate
+        )
       );
     }
   }

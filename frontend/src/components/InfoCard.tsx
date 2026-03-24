@@ -1,6 +1,5 @@
 "use client"
 import React from "react";
-import { ReservationItem, RestaurantItem } from "interface";
 
 export default function InfoCard({ restaurant } : { restaurant: RestaurantItem }) {
     return (

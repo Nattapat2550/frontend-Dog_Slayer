@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Card from "@/components/Card"
-import { RestaurantJson, RestaurantItem } from "interface"
 
 export default async function RestaurantCatalog({restaurantsJson}:{restaurantsJson:Promise<RestaurantJson>}) {
     const restaurant = await restaurantsJson

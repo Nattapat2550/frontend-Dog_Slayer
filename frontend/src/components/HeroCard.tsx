@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Select, MenuItem } from '@mui/material'
-import { RestaurantItem } from "interface";
 
 export default function HeroCard({ restaurant, restaurants, onSelect } : { restaurant:RestaurantItem, restaurants: RestaurantItem[], onSelect: (r: RestaurantItem) => void; }) {
 
@@ -51,6 +50,9 @@ export default function HeroCard({ restaurant, restaurants, onSelect } : { resta
                     const value = e.target.value as string;
                     const selected = restaurants.find(r => r.id === e.target.value);
                     if (selected) onSelect(selected); //ส่งกลับ parent na kub
+                }}
+                MenuProps={{
+                    disableScrollLock: true
                 }}
                 sx={{
                     pl: "10px",

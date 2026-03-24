@@ -52,7 +52,7 @@ export default function Banner() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:bottom-12 sm:right-12 bg-orange-600 text-white font-bold py-3 sm:py-4 px-8 sm:px-10 rounded-full hover:bg-orange-700 hover:shadow-xl hover:shadow-orange-600/30 hover:-translate-y-1 transition-all duration-300 z-30 w-[80%] sm:w-auto text-lg"
         onClick={(e) => {
           e.stopPropagation(); 
-          router.push('/venue');
+          router.push('/reservation');
         }}
       >
         Start Reserve

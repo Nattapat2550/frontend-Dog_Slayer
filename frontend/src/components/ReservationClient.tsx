@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { Dayjs } from "dayjs";
-import { ReservationItem, RestaurantItem } from "interface";
 
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import { addReservation } from "@/redux/features/bookSlice";
 
 import TextField from "@mui/material/TextField";
@@ -16,6 +15,7 @@ import BookingCard from "@/components/BookingCard";
 
 export default function Reservation({ restaurants }: { restaurants: RestaurantItem[] }) {
 
+    const bookItems = useAppSelector((state)=> state.bookSlice.reservationItems)
     const [name, setName] = useState("");
     const [tel, setTel] = useState("");
     const [reserveDate, setReserveDate] = useState<Dayjs | null>(null);
@@ -24,18 +24,65 @@ export default function Reservation({ restaurants }: { restaurants: RestaurantIt
 
     const dispatch = useDispatch<AppDispatch>()
 
+    //For check Hour
+    const isWithinOpeningHours = (
+        reserveDate: Dayjs,
+        openTime: string,
+        closeTime: string
+        ) => {
+        const [openH, openM] = openTime.split(":").map(Number);
+        const [closeH, closeM] = closeTime.split(":").map(Number);
+
+        const open = reserveDate.hour(openH).minute(openM).second(0);
+        const close = reserveDate.hour(closeH).minute(closeM).second(0);
+
+        //Check Way la
+        return (
+            (reserveDate.isAfter(open) || reserveDate.isSame(open)) &&
+            (reserveDate.isBefore(close) || reserveDate.isSame(close))
+        );
+    };
+
     const makeReservation = () => {
-        if (name && tel && reserveDate && restaurant.address) {
+        if (name && tel && reserveDate && time && restaurant.address) {
+
+            const [hour, minute] = time.split(":").map(Number);
+            const selected = reserveDate
+                .hour(hour)
+                .minute(minute)
+                .second(0);
+            
+            if (!isWithinOpeningHours(selected, restaurant.opentime, restaurant.closetime)) {
+                alert(`Restaurant is open from ${restaurant.opentime} to ${restaurant.closetime}`);
+                return;
+            }
+
             const item:ReservationItem = {
                 name: name,
                 tel: tel,
                 restaurant: restaurant.name,
                 address: restaurant.address,
-                reservationDate: reserveDate.toString(),
+                reservationDate: selected.toString(),
             }
+
+            if (bookItems.length >= 3) {
+                alert(`Maximum Reservation Booking (3)`);
+                return;
+            }
+
             dispatch(addReservation(item));
+            alert("Booking success!");
+        } else if (!name) {
+            alert("Missing name!");
+        } else if (!tel) {
+            alert("Missing Telephone number!");
+        } else if (!reserveDate) {
+            alert("Missing reservation Date!");
+        } else if (!restaurant.address) {
+            alert("Missing Address!");
+        } else if (!time) {
+            alert("Missing Time!");
         }
-        alert("Booking success!");
     };
 
     return (
